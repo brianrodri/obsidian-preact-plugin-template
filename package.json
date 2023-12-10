@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "vite serve",
 		"build": "tsc -noEmit -skipLibCheck && vite build",
+		"lint": "eslint .",
 		"version": "node version-bump.mjs && git add manifest.json versions.json"
 	},
 	"keywords": [],
@@ -13,6 +14,10 @@
 	"license": "MIT",
 	"type": "module",
 	"devDependencies": {
+		"@eslint/js": "latest",
+		"@typescript-eslint/eslint-plugin": "latest",
+		"@typescript-eslint/parser": "latest",
+		"eslint": "latest",
 		"obsidian": "latest",
 		"tslib": "latest",
 		"typescript": "latest",
