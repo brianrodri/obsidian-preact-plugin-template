@@ -6,7 +6,7 @@
 
         // Modules
         "baseUrl": "src",
-        "module": "ESNext",
+        "module": "NodeNext",
         "moduleResolution": "NodeNext",
 
         // Emit
