@@ -19,7 +19,7 @@ export default [
     },
 
     {
-        files: ["src/**/*.ts"],
+        files: ["src/**/*.tsx"],
         plugins: { "@typescript-eslint": typescriptPlugin },
         rules: {
             ...typescriptPlugin.configs.recommended.rules,

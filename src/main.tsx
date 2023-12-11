@@ -1,4 +1,6 @@
+import { Foo } from "./link.tsx";
 import { App, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from "obsidian";
+import { render } from "preact";
 
 // Remember to rename these classes and interfaces!
 
@@ -27,6 +29,11 @@ export default class MyPlugin extends Plugin {
         // This adds a status bar item to the bottom of the app. Does not work on mobile apps.
         const statusBarItemEl = this.addStatusBarItem();
         statusBarItemEl.setText("Status Bar Text");
+
+        this.registerMarkdownCodeBlockProcessor("sample-plugin", (source, el) => {
+            const bar = Number.parseFloat(source);
+            render(<Foo bar={bar} />, el);
+        });
 
         // This adds a simple command that can be triggered anywhere
         this.addCommand({
