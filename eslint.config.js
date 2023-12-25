@@ -7,7 +7,7 @@ import globals from "globals";
 
 /** @type { import("eslint").Linter.FlatConfig[] } */
 export default [
-    { ignores: ["dist/", "node_modules/"] },
+    { ignores: ["dist/", "node_modules/", "test-vault/"] },
 
     js.configs.recommended,
 
