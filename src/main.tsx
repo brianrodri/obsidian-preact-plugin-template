@@ -1,4 +1,4 @@
-import { Foo } from "./link.tsx";
+import { Foo } from "./link";
 import { App, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from "obsidian";
 import { render } from "preact";
 

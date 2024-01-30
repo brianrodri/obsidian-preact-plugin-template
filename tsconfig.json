@@ -5,9 +5,9 @@
         "strict": true,
 
         // Modules
-        "baseUrl": "src",
-        "module": "NodeNext",
-        "moduleResolution": "NodeNext",
+        "baseUrl": "./src",
+        "module": "ESNext",
+        "moduleResolution": "Node",
 
         // Emit
         "noEmit": true,

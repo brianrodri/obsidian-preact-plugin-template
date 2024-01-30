@@ -8,9 +8,9 @@
 # npm
 node_modules
 
-# Don't include the compiled main.js file in the repo.
-# They should be uploaded to GitHub releases instead.
-main.js
+# Don't include build output with the repo.
+# It should be uploaded to GitHub releases instead.
+dist/
 
 # Exclude sourcemaps
 *.map
@@ -26,7 +26,7 @@ test-vault/.obsidian/*
 !test-vault/.obsidian/community-plugins.json
 !test-vault/.obsidian/plugins/
 test-vault/.obsidian/plugins/*
-!test-vault/.obsidian/plugins/obsidian-bujo/
+!test-vault/.obsidian/plugins/sample-plugin/
 !test-vault/.obsidian/plugins/hot-reload/
-test-vault/.obsidian/plugins/obsidian-bujo/*
-!test-vault/.obsidian/plugins/obsidian-bujo/.hotreload
+test-vault/.obsidian/plugins/sample-plugin/*
+!test-vault/.obsidian/plugins/sample-plugin/.hotreload
