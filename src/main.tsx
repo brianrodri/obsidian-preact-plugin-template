@@ -30,9 +30,12 @@ export default class MyPlugin extends Plugin {
         const statusBarItemEl = this.addStatusBarItem();
         statusBarItemEl.setText("Status Bar Text");
 
+        // Render a React component in Markdown code blocks with the language "sample-plugin". For example:
+        // ```sample-plugin
+        // 32
+        // ```
         this.registerMarkdownCodeBlockProcessor("sample-plugin", (source, el) => {
-            const bar = Number.parseFloat(source);
-            render(<Foo bar={bar} />, el);
+            render(<Foo bar={Number.parseFloat(source)} />, el);
         });
 
         // This adds a simple command that can be triggered anywhere

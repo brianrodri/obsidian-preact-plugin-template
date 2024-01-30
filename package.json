@@ -8,7 +8,7 @@
         "dev": "vite serve",
         "build": "tsc && vite build",
         "lint": "eslint .",
-        "version": "node version-bump.mjs && git add public/manifest.json public/versions.json",
+        "version": "node version-bump.mjs && git add public/",
         "prepare": "husky install",
         "commitlint": "commitlint --edit"
     },
