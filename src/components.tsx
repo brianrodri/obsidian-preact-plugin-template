@@ -1,7 +1,15 @@
+import { MyPluginSettings } from "main";
+
 export interface SampleCodeBlockProps {
-    bar: number;
+    input: string;
+    settings: MyPluginSettings;
 }
 
-export function SampleCodeBlock({ bar }: SampleCodeBlockProps) {
-    return <>I got: {bar}!</>;
+export function SampleCodeBlock({ input, settings }: SampleCodeBlockProps) {
+    return (
+        <ul>
+            <li>Input: {input}</li>
+            <li>Settings: {settings.mySetting}</li>
+        </ul>
+    );
 }

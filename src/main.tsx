@@ -4,7 +4,7 @@ import { render } from "preact";
 
 // Remember to rename these classes and interfaces!
 
-interface MyPluginSettings {
+export interface MyPluginSettings {
     mySetting: string;
 }
 
@@ -30,12 +30,9 @@ export default class MyPlugin extends Plugin {
         const statusBarItemEl = this.addStatusBarItem();
         statusBarItemEl.setText("Status Bar Text");
 
-        // Render a React component in Markdown code blocks with the language "sample-plugin". For example:
-        // ```sample-plugin
-        // 32
-        // ```
+        // Replaces code blocks with the specified language (here: "sample-plugin") by rendering a React component.
         this.registerMarkdownCodeBlockProcessor("sample-plugin", (source, el) => {
-            render(<SampleCodeBlock bar={Number.parseFloat(source)} />, el);
+            render(<SampleCodeBlock input={source} settings={this.settings} />, el);
         });
 
         // This adds a simple command that can be triggered anywhere
