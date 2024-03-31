@@ -1,4 +1,4 @@
-import { Foo } from "./link";
+import { SampleCodeBlock } from "./components";
 import { App, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from "obsidian";
 import { render } from "preact";
 
@@ -35,7 +35,7 @@ export default class MyPlugin extends Plugin {
         // 32
         // ```
         this.registerMarkdownCodeBlockProcessor("sample-plugin", (source, el) => {
-            render(<Foo bar={Number.parseFloat(source)} />, el);
+            render(<SampleCodeBlock bar={Number.parseFloat(source)} />, el);
         });
 
         // This adds a simple command that can be triggered anywhere
