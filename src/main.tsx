@@ -15,7 +15,7 @@ const DEFAULT_SETTINGS: MyPluginSettings = {
 export default class MyPlugin extends Plugin {
     settings: MyPluginSettings = DEFAULT_SETTINGS;
 
-    async onload() {
+    public override async onload(): Promise<void> {
         await this.loadSettings();
 
         // This creates an icon in the left ribbon.
@@ -85,7 +85,7 @@ export default class MyPlugin extends Plugin {
         this.registerInterval(window.setInterval(() => console.log("setInterval"), 5 * 60 * 1000));
     }
 
-    onunload() {}
+    public override async onunload(): Promise<void> {
 
     async loadSettings() {
         this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
@@ -98,11 +98,13 @@ export default class MyPlugin extends Plugin {
 
 class SampleModal extends Modal {
     onOpen() {
+    public override onOpen() {
         const { contentEl } = this;
         contentEl.setText("Woah!");
     }
 
     onClose() {
+    public override onClose() {
         const { contentEl } = this;
         contentEl.empty();
     }
@@ -116,7 +118,7 @@ class SampleSettingTab extends PluginSettingTab {
         this.plugin = plugin;
     }
 
-    display(): void {
+    public override async display(): Promise<void> {
         const { containerEl } = this;
 
         containerEl.empty();

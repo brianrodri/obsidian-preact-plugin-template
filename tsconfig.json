@@ -17,6 +17,7 @@
         // Interop Constraints
         "esModuleInterop": true,
         "isolatedModules": true,
+        "noImplicitOverride": true,
 
         // Language and Environment
         "jsx": "react-jsx",
