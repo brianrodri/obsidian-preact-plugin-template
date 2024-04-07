@@ -1,15 +1,38 @@
+import { DateTime } from "luxon";
 import { MyPluginSettings } from "main";
+import { useEffect, useState } from "react";
 
-export interface SampleCodeBlockProps {
+export interface MyPluginCodeBlockProps {
     input: string;
-    settings: MyPluginSettings;
+    pluginSettings: MyPluginSettings;
 }
 
-export function SampleCodeBlock({ input, settings }: SampleCodeBlockProps) {
+export function MyPluginCodeBlock({ input, pluginSettings }: MyPluginCodeBlockProps) {
+    // Free to use the full power of React!
+    const now = useNow();
+
     return (
         <ul>
+            <li>Current time: {now.toISO({ suppressMilliseconds: true })}</li>
             <li>Input: {input}</li>
-            <li>Settings: {settings.mySetting}</li>
+            <li>My setting: {pluginSettings.mySetting}</li>
         </ul>
     );
+}
+
+/** Hook that returns the current time, off by at most ~1 second. */
+function useNow() {
+    const [now, setNow] = useState(getNow);
+
+    useEffect(() => {
+        const i = setInterval(() => setNow(getNow()), 1000);
+        return () => clearInterval(i);
+    }, []);
+
+    return now;
+}
+
+/** @returns the current time (milliseconds are truncated). */
+function getNow() {
+    return DateTime.now().set({ millisecond: 0 });
 }

@@ -1,8 +1,6 @@
-import { SampleCodeBlock } from "./components";
 import { App, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from "obsidian";
 import { render } from "preact";
-
-// Remember to rename these classes and interfaces!
+import { MyPluginCodeBlock } from "./components";
 
 export interface MyPluginSettings {
     mySetting: string;
@@ -13,107 +11,121 @@ const DEFAULT_SETTINGS: MyPluginSettings = {
 };
 
 export default class MyPlugin extends Plugin {
-    settings: MyPluginSettings = DEFAULT_SETTINGS;
+    private settings: MyPluginSettings = { ...DEFAULT_SETTINGS };
 
     public override async onload(): Promise<void> {
         await this.loadSettings();
 
-        // This creates an icon in the left ribbon.
-        const ribbonIconEl = this.addRibbonIcon("dice", "Sample Plugin", () => {
-            // Called when the user clicks the icon.
-            new Notice("This is a notice!");
-        });
-        // Perform additional things with the ribbon
+        // This creates an icon in the left ribbon that will bring up a notice when clicked.
+        const ribbonIconEl: HTMLElement = this.addRibbonIcon(
+            "dice",
+            "Sample Plugin",
+            () => new Notice("This is a notice!"),
+        );
+
+        // Free to use the full power of DOM manipulation because icons are valid HTMLElements.
         ribbonIconEl.addClass("my-plugin-ribbon-class");
 
-        // This adds a status bar item to the bottom of the app. Does not work on mobile apps.
-        const statusBarItemEl = this.addStatusBarItem();
-        statusBarItemEl.setText("Status Bar Text");
-
-        // Replaces code blocks with the specified language (here: "sample-plugin") by rendering a React component.
-        this.registerMarkdownCodeBlockProcessor("sample-plugin", (source, el) => {
-            render(<SampleCodeBlock input={source} settings={this.settings} />, el);
-        });
-
-        // This adds a simple command that can be triggered anywhere
-        this.addCommand({
-            id: "open-sample-modal-simple",
-            name: "Open sample modal (simple)",
-            callback: () => {
-                new SampleModal(this.app).open();
-            },
-        });
-        // This adds an editor command that can perform some operation on the current editor instance
-        this.addCommand({
-            id: "sample-editor-command",
-            name: "Sample editor command",
-            editorCallback: (editor) => {
-                console.log(editor.getSelection());
-                editor.replaceSelection("Sample Editor Command");
-            },
-        });
-        // This adds a complex command that can check whether the current state of the app allows execution of the command
-        this.addCommand({
-            id: "open-sample-modal-complex",
-            name: "Open sample modal (complex)",
-            checkCallback: (checking: boolean) => {
-                // Conditions to check
-                const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
-                if (markdownView) {
-                    // If checking is true, we're simply "checking" if the command can be run.
-                    // If checking is false, then we want to actually perform the operation.
-                    if (!checking) {
-                        new SampleModal(this.app).open();
-                    }
-
-                    // This command will only show up in Command Palette when the check function returns true
-                    return true;
-                }
-            },
-        });
-
-        // This adds a settings tab so the user can configure various aspects of the plugin
-        this.addSettingTab(new SampleSettingTab(this.app, this));
-
-        // If the plugin hooks up any global DOM events (on parts of the app that doesn't belong to this plugin)
-        // Using this function will automatically remove the event listener when this plugin is disabled.
+        // However when creating event listeners, it's best to register them with the plugin to ensure they get cleaned up properly.
         this.registerDomEvent(document, "click", (evt: MouseEvent) => {
             console.log("click", evt);
         });
+        // It's also best to register intervals with the plugin.
+        this.registerInterval(
+            window.setInterval(
+                () => console.log("MyPlugin heartbeat"),
+                60 * 1000, // 60 seconds
+            ),
+        );
 
-        // When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-        this.registerInterval(window.setInterval(() => console.log("setInterval"), 5 * 60 * 1000));
+        // Adds a status bar item to the bottom of the app (NOTE: the status bar is not available on the mobile app).
+        const statusBarItemEl: HTMLElement = this.addStatusBarItem();
+        statusBarItemEl.setText("Status Bar Text");
+
+        // Replaces code blocks annotated with the specified language (here: "sample-plugin") with a rendered React component.
+        //
+        // For example, a code block like this:
+        // ```sample-plugin
+        // This is some input
+        // ```
+        //
+        // Will render the React component instead of a code block when the editor is in view mode.
+        this.registerMarkdownCodeBlockProcessor("sample-plugin", (codeBlockContent, codeBlockRootElement) => {
+            render(<MyPluginCodeBlock input={codeBlockContent} pluginSettings={this.settings} />, codeBlockRootElement);
+        });
+
+        this.addCommand({
+            id: "open-modal",
+            name: "Open modal",
+            callback: () => new MyPluginModal(this.app).open(),
+        });
+
+        this.addCommand({
+            id: "open-modal-conditionally",
+            name: "Open modal conditionally",
+            checkCallback: (dryRun: boolean) => {
+                const check = this.app.workspace.getActiveViewOfType(MarkdownView) !== null;
+                if (check && !dryRun) {
+                    new MyPluginModal(this.app).open();
+                }
+                return check;
+            },
+        });
+
+        // Example of a command that can mutate the editor (here: replacing the currently-selected text with something else).
+        this.addCommand({
+            id: "replace-selected-text",
+            name: "Replace selected text",
+            editorCallback: (editor) => editor.replaceSelection("Sample Editor Command"),
+        });
+
+        // This adds a settings tab so the user can configure various aspects of the plugin
+        this.addSettingTab(new MyPluginSettingTab(this.app, this));
     }
 
     public override async onunload(): Promise<void> {
-
-    async loadSettings() {
-        this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+        await this.saveSettings();
+        console.log("MyPlugin settings saved");
     }
 
-    async saveSettings() {
+    /** Returns the plugin settings. */
+    public getSettings(): MyPluginSettings {
+        return this.settings;
+    }
+
+    /** Updates the plugin settings. */
+    public overwriteSettings(changes: Partial<MyPluginSettings>): void {
+        this.settings = { ...this.settings, ...changes };
+    }
+
+    /** Asynchronously loads the plugin settings from Obsidian's configuration storage. */
+    public async loadSettings(): Promise<void> {
+        const data = await this.loadData();
+        this.settings = { ...DEFAULT_SETTINGS, ...data };
+    }
+
+    /** Asynchronously saves the plugin settings to Obsidian's configuration storage. */
+    public async saveSettings(): Promise<void> {
         await this.saveData(this.settings);
     }
 }
 
-class SampleModal extends Modal {
-    onOpen() {
+class MyPluginModal extends Modal {
     public override onOpen() {
         const { contentEl } = this;
         contentEl.setText("Woah!");
     }
 
-    onClose() {
     public override onClose() {
         const { contentEl } = this;
         contentEl.empty();
     }
 }
 
-class SampleSettingTab extends PluginSettingTab {
-    plugin: MyPlugin;
+class MyPluginSettingTab extends PluginSettingTab {
+    private readonly plugin: MyPlugin;
 
-    constructor(app: App, plugin: MyPlugin) {
+    public constructor(app: App, plugin: MyPlugin) {
         super(app, plugin);
         this.plugin = plugin;
     }
@@ -129,10 +141,10 @@ class SampleSettingTab extends PluginSettingTab {
             .addText((text) =>
                 text
                     .setPlaceholder("Enter your secret")
-                    .setValue(this.plugin.settings.mySetting)
-                    .onChange(async (value) => {
-                        this.plugin.settings.mySetting = value;
-                        await this.plugin.saveSettings();
+                    .setValue(this.plugin.getSettings().mySetting)
+                    .onChange((value) => {
+                        this.plugin.overwriteSettings({ mySetting: value });
+                        this.plugin.saveSettings();
                     }),
             );
     }
