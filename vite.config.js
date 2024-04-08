@@ -18,4 +18,7 @@ export default defineConfig(({ mode }) => ({
         },
         sourcemap: mode === "development" ? "inline" : false,
     },
+    test: {
+        environment: "jsdom",
+    },
 }));
