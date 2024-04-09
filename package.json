@@ -15,7 +15,7 @@
         "version": "node version-bump.mjs && git add public/",
         "prepare": "husky",
         "commitlint": "commitlint --edit",
-        "clean": "rm -rf node_modules/ dist/"
+        "clean": "rm -rf node_modules/ dist/ coverage/ docs/"
     },
     "keywords": [],
     "author": "",
@@ -37,7 +37,7 @@
         "@types/react": "latest",
         "@typescript-eslint/eslint-plugin": "latest",
         "@typescript-eslint/parser": "latest",
-        "@vitest/coverage-v8": "^1.4.0",
+        "@vitest/coverage-v8": "latest",
         "eslint": "latest",
         "eslint-config-preact": "latest",
         "eslint-config-prettier": "latest",
@@ -52,6 +52,7 @@
         "typedoc-plugin-coverage": "latest",
         "typescript": "latest",
         "vite": "latest",
+        "vite-plugin-static-copy": "latest",
         "vitest": "latest"
     }
 }

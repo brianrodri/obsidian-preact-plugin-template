@@ -1,15 +1,23 @@
 import preact from "@preact/preset-vite";
-import { resolve } from "path";
-import { defineConfig, normalizePath } from "vite";
+import { defineConfig } from "vite";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig(({ mode }) => ({
-    plugins: [preact()],
+    plugins: [
+        preact(),
+        viteStaticCopy({
+            targets: [
+                { src: "./styles.css", dest: "./" },
+                { src: "./manifest.json", dest: "./" },
+                { src: "./versions.json", dest: "./" },
+            ],
+        }),
+    ],
     build: {
-        copyPublicDir: true, // Copies manifest.json and version.json into the build directory.
         emptyOutDir: false, // Otherwise helpful files like ".hotreload" will be wiped.
         lib: {
-            entry: normalizePath(resolve(__dirname, "src/main.tsx")),
-            fileName: () => "main.js", // vite will append ".cjs" without this indirection.
+            entry: "src/main.tsx",
+            fileName: () => "main.js",
             formats: ["cjs"],
         },
         rollupOptions: {
