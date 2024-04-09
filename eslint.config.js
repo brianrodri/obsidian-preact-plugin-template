@@ -12,7 +12,7 @@ export default [
     js.configs.recommended,
 
     {
-        files: ["version-bump.mjs", "{commitlint,eslint,vite}.config.js"],
+        files: ["version-bump.mjs", "*.config.{cjs,js}"],
         languageOptions: {
             globals: { ...globals.node },
         },

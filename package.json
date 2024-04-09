@@ -4,7 +4,9 @@
     "description": "This is a sample plugin for Obsidian (https://obsidian.md)",
     "main": "dist/main.js",
     "scripts": {
-        "test": "vitest run --coverage",
+        "test": "vitest run",
+        "watch": "vitest run --watch",
+        "coverage": "vitest run --coverage",
         "hotreload": "git submodule init && git submodule update && vite build --mode development --outDir ./test-vault/.obsidian/plugins/sample-plugin/ --watch",
         "dev": "vite serve",
         "build": "tsc && vite build",
@@ -43,6 +45,7 @@
         "husky": "latest",
         "jsdom": "latest",
         "obsidian": "latest",
+        "semantic-release": "latest",
         "tslib": "latest",
         "typescript": "latest",
         "vite": "latest",
