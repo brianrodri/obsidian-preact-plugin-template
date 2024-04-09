@@ -24,6 +24,9 @@ data.json
 # Exclude test coverage reports
 coverage/
 
+# Exclude TypeDoc output
+docs/
+
 # Exclude (most of) the testing vault
 test-vault/.obsidian/*
 !test-vault/.obsidian/community-plugins.json
