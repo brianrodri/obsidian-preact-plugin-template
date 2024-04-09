@@ -1,5 +1,7 @@
 # Obsidian Sample Plugin
 
+[![codecov](https://codecov.io/github/brianrodri/obsidian-preact-plugin-template/graph/badge.svg?token=KZU1DEZLSZ)](https://codecov.io/github/brianrodri/obsidian-preact-plugin-template)
+
 This is a sample plugin for Obsidian (https://obsidian.md).
 
 This project uses Typescript to provide type checking and documentation.
