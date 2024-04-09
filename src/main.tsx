@@ -10,7 +10,7 @@ const DEFAULT_SETTINGS: MyPluginSettings = {
     mySetting: "default",
 };
 
-export default class MyPlugin extends Plugin {
+export class MyPlugin extends Plugin {
     private settings: MyPluginSettings = { ...DEFAULT_SETTINGS };
 
     public override async onload(): Promise<void> {
@@ -149,3 +149,5 @@ class MyPluginSettingTab extends PluginSettingTab {
             );
     }
 }
+
+export default MyPlugin;
