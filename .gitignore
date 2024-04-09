@@ -21,6 +21,9 @@ data.json
 # Exclude macOS Finder (System Explorer) View States
 .DS_Store
 
+# Exclude test coverage reports
+coverage/
+
 # Exclude (most of) the testing vault
 test-vault/.obsidian/*
 !test-vault/.obsidian/community-plugins.json
