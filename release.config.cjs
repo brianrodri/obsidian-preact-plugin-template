@@ -5,6 +5,11 @@ module.exports = {
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
         "brianrodri/semantic-release-obsidian-plugin",
-        "@semantic-release/github",
+        [
+            "@semantic-release/github",
+            {
+                assets: ["package.json", "package-lock.json", "manifest.json", "versions.json"],
+            },
+        ],
     ],
 };
