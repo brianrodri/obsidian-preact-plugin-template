@@ -4,6 +4,7 @@ module.exports = {
     plugins: [
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
+        "brianrodri/semantic-release-obsidian-plugin",
         "@semantic-release/github",
     ],
 };
