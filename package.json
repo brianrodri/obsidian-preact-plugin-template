@@ -47,6 +47,7 @@
         "jsdom": "latest",
         "obsidian": "latest",
         "semantic-release": "latest",
+        "semantic-release-obsidian-plugin": "latest",
         "tslib": "latest",
         "typedoc": "latest",
         "typedoc-plugin-coverage": "latest",
