@@ -12,7 +12,7 @@ export default [
     js.configs.recommended,
 
     {
-        files: ["version-bump.mjs", "*.config.{cjs,js}"],
+        files: ["version-bump.mjs", ".husky/install.mjs", "*.config.{cjs,js}"],
         languageOptions: {
             globals: { ...globals.node },
         },
