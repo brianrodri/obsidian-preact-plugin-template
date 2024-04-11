@@ -15,7 +15,7 @@ module.exports = {
         [
             "@semantic-release/github",
             {
-                assets: ["dist/main.js", "manifest.json", "versions.json"],
+                assets: ["dist/main.js", "dist/manifest.json", "dist/versions.json"],
             },
         ],
     ],
