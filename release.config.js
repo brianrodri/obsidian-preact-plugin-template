@@ -15,7 +15,7 @@ export default {
         [
             "@semantic-release/github",
             {
-                assets: ["dist/main.js", "dist/manifest.json", "dist/versions.json"],
+                assets: ["dist/main.js", "dist/manifest.json", "dist/styles.css"],
             },
         ],
     ],

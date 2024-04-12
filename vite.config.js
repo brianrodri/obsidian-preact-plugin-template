@@ -7,9 +7,8 @@ export default defineConfig(({ mode }) => ({
         preact(),
         viteStaticCopy({
             targets: [
-                { src: "./styles.css", dest: "./" },
-                { src: "./manifest.json", dest: "./" },
-                { src: "./versions.json", dest: "./" },
+                { src: "styles.css", dest: "./" },
+                { src: "manifest.json", dest: "./" },
             ],
         }),
     ],
