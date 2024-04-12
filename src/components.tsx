@@ -20,7 +20,7 @@ export function MyPluginCodeBlock({ input, pluginSettings }: MyPluginCodeBlockPr
     );
 }
 
-/** Hook that returns the current time, off by at most ~1 second. */
+/** Hook that returns the current time (stale by at most ~1 second). */
 function useNow() {
     const [now, setNow] = useState(getNow);
 
@@ -32,7 +32,7 @@ function useNow() {
     return now;
 }
 
-/** @returns the current time (milliseconds are truncated). */
+/** Returns the current time (milliseconds are truncated). */
 function getNow() {
     return DateTime.now().set({ millisecond: 0 });
 }
