@@ -25,7 +25,8 @@
         "luxon": "latest",
         "obsidian": "latest",
         "preact": "latest",
-        "react": "@preact/compat@latest"
+        "react": "npm:@preact/compat",
+        "react-dom": "npm:@preact/compat"
     },
     "devDependencies": {
         "@commitlint/cli": "latest",
@@ -35,7 +36,6 @@
         "@semantic-release/git": "latest",
         "@testing-library/preact": "latest",
         "@types/luxon": "latest",
-        "@types/react": "latest",
         "@typescript-eslint/eslint-plugin": "latest",
         "@typescript-eslint/parser": "latest",
         "@vitest/coverage-v8": "latest",
