@@ -1,29 +1,46 @@
+import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
-import prettierConfig from "eslint-config-prettier";
-import prettierPlugin from "eslint-plugin-prettier";
 import typescriptPlugin from "@typescript-eslint/eslint-plugin";
 import typescriptPluginParser from "@typescript-eslint/parser";
+import prettierConfig from "eslint-config-prettier";
+import prettierPlugin from "eslint-plugin-prettier";
+import reactHooksPlugin from "eslint-plugin-react-hooks";
 import globals from "globals";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 
-/** @type { import("eslint").Linter.FlatConfig[] } */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+/** @type { import("eslint").Linter.Config[] } */
 export default [
     { ignores: ["coverage/", "docs/", "dist/", "node_modules/", "test-vault/"] },
 
-    js.configs.recommended,
+    // TODO: Replace with ESLint v9 config: preactjs/eslint-config-preact#28
+    ...new FlatCompat({
+        baseDirectory: __dirname,
+        resolvePluginsRelativeTo: __dirname,
+        recommendedConfig: js.configs.recommended,
+        allConfig: js.configs.all,
+    }).extends("preact"),
 
     {
-        files: ["*.config.js", ".husky/install.js"],
+        files: ["*.config.js"],
         languageOptions: {
             globals: { ...globals.node },
         },
     },
 
     {
-        files: ["src/**/*.tsx"],
-        plugins: { "@typescript-eslint": typescriptPlugin },
+        files: ["src/**/*.{ts,tsx}"],
+        plugins: {
+            "@typescript-eslint": typescriptPlugin,
+            "react-hooks": reactHooksPlugin,
+        },
         rules: {
             ...typescriptPlugin.configs.recommended.rules,
             ...typescriptPlugin.configs.strict.rules,
+            ...reactHooksPlugin.configs.recommended.rules,
         },
         languageOptions: {
             globals: { ...globals.browser },
