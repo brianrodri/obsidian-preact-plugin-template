@@ -40,5 +40,6 @@ export default defineConfig(({ mode }) => ({
             include: ["src/"],
             exclude: ["src/main.tsx"],
         },
+        passWithNoTests: true,
     },
 }));

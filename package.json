@@ -19,7 +19,6 @@
         "watch-coverage": "vitest --watch --coverage"
     },
     "dependencies": {
-        "luxon": "latest",
         "obsidian": "latest",
         "preact": "latest",
         "react": "npm:@preact/compat",
@@ -33,7 +32,6 @@
         "@preact/preset-vite": "latest",
         "@semantic-release/git": "latest",
         "@testing-library/preact": "latest",
-        "@types/luxon": "latest",
         "@typescript-eslint/eslint-plugin": "latest",
         "@typescript-eslint/parser": "latest",
         "@vitest/coverage-v8": "latest",
@@ -46,7 +44,6 @@
         "globals": "latest",
         "husky": "latest",
         "jsdom": "latest",
-        "obsidian": "latest",
         "semantic-release": "latest",
         "semantic-release-obsidian-plugin": "latest",
         "tslib": "latest",
