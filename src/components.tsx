@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
-import { MyPluginSettings } from "main";
 import { useEffect, useState } from "react";
+
+import { MyPluginSettings } from "@/main";
 
 export interface MyPluginCodeBlockProps {
     input: string;

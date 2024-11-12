@@ -1,4 +1,5 @@
 import preact from "@preact/preset-vite";
+import { resolve } from "path";
 import { defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
@@ -24,6 +25,13 @@ export default defineConfig(({ mode }) => ({
             external: ["obsidian"],
         },
         sourcemap: mode === "development" ? "inline" : false,
+    },
+    resolve: {
+        alias: {
+            "@": resolve(__dirname, "/src"),
+            react: "preact/compat",
+            "react-dom": "preact/compat",
+        },
     },
     test: {
         environment: "jsdom",

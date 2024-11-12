@@ -1,6 +1,7 @@
 import { App, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from "obsidian";
 import { render } from "preact";
-import { MyPluginCodeBlock } from "./components";
+
+import { MyPluginCodeBlock } from "@/components";
 
 export interface MyPluginSettings {
     mySetting: string;
